@@ -1,13 +1,13 @@
 # Lab 04: M365 Suspicious Sign-ins — Portal Triage + KQL Investigation Patterns
 
-## Recruiter-Friendly Summary (skim in 30 seconds)
+## Recruiter-Friendly Summary
 
 In this lab I investigated suspicious Microsoft 365 (M365) sign-in activity using a SOC-style workflow: portal triage first, containment when needed, then structured hunting with KQL (Kusto Query Language).
 I validated how to capture the right pivots (user, IP, auth details), revoke sessions, enforce stronger authentication, and confirm remediation by forcing reauthentication.
 Because this environment used Azure Monitor Logs demo data (no `SigninLogs` or `AuditLogs` tables), I treated `AppRequests` as proxy telemetry to practice the same investigation pattern: inventory data sources, scope time, summarize anomalies, and compare recent behavior to baseline.
 The focus is not "running queries," it is proving a repeatable investigation method with evidence artifacts that are easy to explain in interviews.
 
-## Evidence (proof of work)
+## Evidence
 
 - Sign-in log screenshots show portal triage plus containment and remediation validation.
 - KQL screenshots show the investigation pattern: table inventory, schema sanity check, time scoping, summarization, and baseline comparison.
@@ -16,7 +16,7 @@ The focus is not "running queries," it is proving a repeatable investigation met
 
 In a real SOC, most time is lost on "where do I start" and "what do I check next." This lab demonstrates a repeatable, evidence-driven investigation pattern that begins in the portal for fast context, applies containment when appropriate, then pivots into KQL for structured hunting and summarization.
 
-## Objectives (what I validated)
+## Objectives
 
 1. Use Entra Sign-in logs for quick portal-based triage: user, IP, authentication details, and risk signals.
 2. Apply containment steps and validate remediation worked (forced reauthentication).
@@ -29,7 +29,7 @@ In a real SOC, most time is lost on "where do I start" and "what do I check next
 2. Azure Monitor Logs: demo workspace, KQL against available demo tables.
 3. Data caveat: this demo workspace does not contain `SigninLogs` or `AuditLogs`, so the KQL portion uses `AppRequests` as a stand-in to practice the workflow and anomaly hunting pattern.
 
-## Repeatable workflow (used in this lab)
+## Repeatable workflow
 
 1. Portal triage: isolate the event, capture pivots (user, IP, result, MFA/Conditional Access outcomes).
 2. Decide next step: user friction vs risk that requires containment.
@@ -176,7 +176,7 @@ In my results, the "new names" resembled automated probing for common files and 
 
 ---
 
-## Findings (what stood out)
+## Findings
 
 1. Repeated failures (especially 500s) are worth validating because they can indicate misconfiguration, error handling bugs, or traffic causing instability.
 2. New paths returning 404s, especially common web app targets, often align with automated scanning and reconnaissance.
